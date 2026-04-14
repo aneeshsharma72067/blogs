@@ -137,3 +137,8 @@ export const listPublicPosts = async (): Promise<PublicPost[]> => {
       featured: post.featured,
     }))
 }
+
+export const getPublicPostById = async (id: string): Promise<PublicPost | null> => {
+  const posts = await listPublicPosts()
+  return posts.find((post) => post.id === id) ?? null
+}

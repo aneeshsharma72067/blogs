@@ -15,10 +15,13 @@ defineProps<{
       >
         Featured
       </span>
-      <h2
-        class="mb-8 font-headline text-4xl font-bold leading-tight text-on-surface transition-colors hover:text-primary"
-      >
-        {{ post.title }}
+      <h2 class="mb-8 font-headline text-4xl font-bold leading-tight text-on-surface">
+        <NuxtLink
+          :to="`/posts/${post.id}`"
+          class="transition-colors hover:text-primary"
+        >
+          {{ post.title }}
+        </NuxtLink>
       </h2>
 
       <div class="post-body font-body text-lg leading-[1.8] text-on-surface-variant" v-html="post.bodyHtml" />
