@@ -1,8 +1,17 @@
 <script setup lang="ts">
+withDefaults(
+  defineProps<{
+    active?: 'essays' | 'about' | 'admin'
+  }>(),
+  {
+    active: 'essays',
+  },
+)
+
 const navigationItems = [
-  { label: 'Essays', href: '#feed', active: true },
-  { label: 'About', href: '#about' },
-  { label: 'Admin', href: '#admin' },
+  { key: 'essays', label: 'Essays', to: '/' },
+  { key: 'about', label: 'About', to: '/about' },
+  { key: 'admin', label: 'Admin', to: '/admin' },
 ]
 </script>
 
@@ -14,15 +23,15 @@ const navigationItems = [
       </div>
 
       <div class="hidden items-center gap-8 md:flex">
-        <a
+        <NuxtLink
           v-for="item in navigationItems"
           :key="item.label"
-          :href="item.href"
+          :to="item.to"
           class="font-label text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300"
-          :class="item.active ? 'border-b border-primary/50 pb-1 text-primary' : 'text-outline hover:text-on-surface'"
+          :class="active === item.key ? 'border-b border-primary/50 pb-1 text-primary' : 'text-outline hover:text-on-surface'"
         >
           {{ item.label }}
-        </a>
+        </NuxtLink>
       </div>
 
       <div class="flex items-center gap-4">

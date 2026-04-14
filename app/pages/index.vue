@@ -50,7 +50,7 @@ const posts: HomePost[] = [
 
 <template>
   <div class="min-h-screen bg-background text-on-background">
-    <AppHeader />
+    <AppHeader active="essays" />
     <main id="feed" class="mx-auto min-h-screen max-w-7xl px-6 pb-20 pt-32 sm:px-8">
       <HomeHero
         title="Deep Ink &"
