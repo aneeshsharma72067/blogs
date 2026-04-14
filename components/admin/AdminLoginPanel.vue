@@ -1,10 +1,28 @@
 <script setup lang="ts">
 const username = ref('')
 const password = ref('')
+const errorMessage = ref('')
+const pending = ref(false)
 
-const handleSubmit = () => {
-  // Placeholder action until backend auth is connected.
-  console.info('Authenticate request', { username: username.value, hasPassword: Boolean(password.value) })
+const handleSubmit = async () => {
+  errorMessage.value = ''
+  pending.value = true
+
+  try {
+    await $fetch('/api/admin/login', {
+      method: 'POST',
+      body: {
+        username: username.value,
+        password: password.value,
+      },
+    })
+    await navigateTo('/admin/dashboard')
+  } catch(err) {
+    console.log(err)
+    errorMessage.value = 'Invalid credentials. Please try again.'
+  } finally {
+    pending.value = false
+  }
 }
 </script>
 
@@ -65,12 +83,15 @@ const handleSubmit = () => {
         <div class="pt-4">
           <button
             type="submit"
+            :disabled="pending"
             class="group flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container py-4 font-headline font-bold text-on-primary transition-all duration-300 hover:bg-primary active:scale-[0.98]"
           >
-            <span class="text-[12px] uppercase tracking-widest">Authenticate Access</span>
+            <span class="text-[12px] uppercase tracking-widest">{{ pending ? 'Authenticating...' : 'Authenticate Access' }}</span>
             <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
           </button>
         </div>
+
+        <p v-if="errorMessage" class="font-label text-[11px] uppercase tracking-widest text-error">{{ errorMessage }}</p>
 
         <div class="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
           <a href="#" class="font-body text-sm italic text-outline transition-colors hover:text-primary">Forgot credentials?</a>
