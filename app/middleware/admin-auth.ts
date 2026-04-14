@@ -1,7 +1,4 @@
-import { defineNuxtRouteMiddleware, navigateTo, useRequestHeaders } from '#app'
-
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  // Only check on server-side
+export default defineNuxtRouteMiddleware(async () => {
   if (!process.server) return
 
   const headers = useRequestHeaders(['cookie'])

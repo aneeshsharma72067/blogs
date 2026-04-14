@@ -4,8 +4,8 @@ export default defineEventHandler(async (event) => {
   const body = await readBody<{ username?: string; password?: string }>(event)
   const config = useRuntimeConfig(event)
 
-  const validUsername = body?.username === 'admin'
-  const validPassword = body?.password === 'root'
+  const validUsername = body?.username === config.adminUsername
+  const validPassword = body?.password === config.adminPassword
 
   if (!validUsername || !validPassword) {
     throw createError({ statusCode: 401, statusMessage: 'Invalid credentials' })

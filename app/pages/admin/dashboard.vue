@@ -13,14 +13,62 @@ useHead({
 
 const title = ref('')
 const body = ref('')
-const status = ref<'idle' | 'saved' | 'published'>('idle')
+const postId = ref<string | null>(null)
+const status = ref<'idle' | 'saving' | 'saved' | 'publishing' | 'published' | 'error'>('idle')
+const statusMessage = ref('')
 
-const saveDraft = () => {
-  status.value = 'saved'
+const hasContent = (value: string) => value.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim().length > 0
+
+const persistPost = async (nextStatus: 'draft' | 'published') => {
+  if (!title.value.trim() || !hasContent(body.value)) {
+    status.value = 'error'
+    statusMessage.value = 'Add both a title and body before saving.'
+    return null
+  }
+
+  status.value = nextStatus === 'draft' ? 'saving' : 'publishing'
+  statusMessage.value = ''
+
+  const post = await $fetch<{ id: string; status: 'draft' | 'published' }>('/api/admin/posts', {
+    method: 'POST',
+    body: {
+      id: postId.value,
+      title: title.value.trim(),
+      bodyHtml: body.value,
+      status: nextStatus,
+    },
+  })
+
+  postId.value = post.id
+  status.value = nextStatus === 'draft' ? 'saved' : 'published'
+  statusMessage.value = nextStatus === 'draft'
+    ? 'Draft saved to the server.'
+    : 'Post published and visible on the home screen.'
+
+  return post
 }
 
-const publish = () => {
-  status.value = 'published'
+const saveDraft = async () => {
+  try {
+    await persistPost('draft')
+  } catch {
+    status.value = 'error'
+    statusMessage.value = 'Unable to save draft right now.'
+  }
+}
+
+const publish = async () => {
+  try {
+    await persistPost('published')
+    await refreshNuxtData('home-posts')
+    title.value = ''
+    body.value = ''
+    postId.value = null
+    await navigateTo('/')
+  } catch {
+    status.value = 'error'
+    statusMessage.value = 'Unable to publish right now.'
+  }
 }
 
 const logout = async () => {
@@ -67,7 +115,7 @@ const logout = async () => {
       </div>
 
       <p v-if="status !== 'idle'" class="mt-6 font-label text-[11px] uppercase tracking-widest text-primary">
-        {{ status === 'saved' ? 'Draft saved locally' : 'Post marked as published' }}
+        {{ statusMessage }}
       </p>
     </main>
 

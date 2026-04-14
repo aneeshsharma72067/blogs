@@ -1,0 +1,44 @@
+[
+  {
+    "id": "post-43-1776181973501",
+    "sequence": 43,
+    "title": "Some post",
+    "bodyHtml": "Some contentadsf fsdfs safsf saadSome contentadsf fsdfs.",
+    "status": "published",
+    "featured": false,
+    "createdAt": "2026-04-14T15:52:53.501Z",
+    "updatedAt": "2026-04-14T15:52:53.501Z",
+    "publishedAt": "2026-04-14T15:52:53.501Z"
+  },
+  {
+    "id": "seed-042",
+    "sequence": 42,
+    "title": "The Silent Architecture of Midnight",
+    "bodyHtml": "<p>In the quietude of the third hour, the world breathes differently. The digital noise that consumes our daylight hours retreats, leaving behind a vacuum that only thought can fill. We often mistake silence for an absence, but in reality, it is a structure.</p><p>Architecture is not just about stone and glass; it is about how we inhabit space. When the sun disappears, the physical space of our rooms shrinks, and the mental space of our consciousness expands to fill the void. This is where the manuscript begins - not with a pen, but with the realization that we are finally alone.</p><blockquote>Silence is not the absence of sound, but the presence of focus. It is the inkwell from which all meaningful architecture is drawn.</blockquote>",
+    "status": "published",
+    "featured": true,
+    "createdAt": "2024-11-18T09:00:00.000Z",
+    "updatedAt": "2024-11-18T09:00:00.000Z",
+    "publishedAt": "2024-11-18T09:00:00.000Z"
+  },
+  {
+    "id": "seed-041",
+    "sequence": 41,
+    "title": "On the Persistence of Analog Memory",
+    "bodyHtml": "<p>We are living in an era of digital evaporation. Our photos live in clouds, our letters are transient packets of data, and our memories are indexed by algorithms. Yet, there remains a primal urge for the physical - for the grain of paper, the smudge of ink, and the weight of a bound book.</p><p>The digital screen offers us infinite possibilities, but it lacks the friction required for true retention. Friction is where meaning is made. When a pen moves across paper, the resistance creates a tactile anchor for the thought. Without that physical anchor, ideas often drift away as quickly as they arrived.</p><p>As we move further into the ephemeral, the nocturnal manuscript becomes a protest. It is an attempt to reclaim the permanence of thought, even if the medium remains digital. We style our screens to mimic the depth of parchment and the gravity of leaded type.</p>",
+    "status": "published",
+    "createdAt": "2024-10-06T09:00:00.000Z",
+    "updatedAt": "2024-10-06T09:00:00.000Z",
+    "publishedAt": "2024-10-06T09:00:00.000Z"
+  },
+  {
+    "id": "seed-040",
+    "sequence": 40,
+    "title": "The Luxury of Negative Space",
+    "bodyHtml": "<p>In modern design, we are taught to fear the empty. We fill every pixel with a call to action, a navigation link, or a suggested article. We have forgotten that the most luxurious thing an interface can provide is the freedom to look away.</p><p>Negative space is the breath of the layout. It provides the pause required for digestion. In an age of information density, the act of deliberately leaving a canvas empty is a radical act of hospitality for the reader&apos;s attention.</p>",
+    "status": "published",
+    "createdAt": "2024-09-14T09:00:00.000Z",
+    "updatedAt": "2024-09-14T09:00:00.000Z",
+    "publishedAt": "2024-09-14T09:00:00.000Z"
+  }
+]

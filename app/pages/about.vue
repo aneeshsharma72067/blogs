@@ -134,13 +134,6 @@ const principles = [
         </article>
       </section>
 
-      <section class="relative mt-32 h-153.5 w-full overflow-hidden bg-surface-container-lowest">
-        <div class="absolute inset-0 z-10 bg-linear-to-t from-surface via-transparent to-surface" />
-        <img src="/stitch/about-ink-texture.jpg" alt="Deep ink texture" class="h-full w-full object-cover brightness-50 contrast-125">
-        <div class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <span class="select-none font-headline text-8xl font-black uppercase tracking-[0.5em] text-primary/5">Silence</span>
-        </div>
-      </section>
     </main>
 
     <AppFooter />
