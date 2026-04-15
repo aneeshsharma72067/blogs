@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+import { ref, computed, watch, onMounted } from 'vue'
+
+const props = withDefaults(
   defineProps<{
     active?: 'essays' | 'about' | 'admin'
   }>(),
@@ -13,6 +15,31 @@ const navigationItems = [
   { key: 'about', label: 'About', to: '/about' },
   { key: 'admin', label: 'Admin', to: '/admin' },
 ]
+
+const navContainer = ref<HTMLElement | null>(null)
+const navLinks = ref<(HTMLElement | null)[]>([])
+const indicatorStyle = ref({ width: '0px', left: '0px' })
+
+const updateIndicator = () => {
+  const activeIndex = navigationItems.findIndex((item) => item.key === props.active)
+  if (activeIndex >= 0 && navLinks.value[activeIndex]) {
+    const link = navLinks.value[activeIndex]
+    const { offsetWidth, offsetLeft } = link
+    indicatorStyle.value = {
+      width: `${offsetWidth}px`,
+      left: `${offsetLeft}px`,
+    }
+  }
+}
+
+watch(() => props.active, () => {
+  updateIndicator()
+})
+
+onMounted(() => {
+  updateIndicator()
+  window.addEventListener('resize', updateIndicator)
+})
 </script>
 
 <template>
@@ -22,26 +49,31 @@ const navigationItems = [
         Manuscript
       </div>
 
-      <div class="hidden items-center gap-8 md:flex">
+      <div ref="navContainer" class="relative hidden items-center gap-8 overflow-visible md:flex">
         <NuxtLink
-          v-for="item in navigationItems"
+          v-for="(item, index) in navigationItems"
           :key="item.label"
           :to="item.to"
-          class="font-label text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300"
-          :class="active === item.key ? 'border-b border-primary/50 pb-1 text-primary' : 'text-outline hover:text-on-surface'"
+          :ref="(el) => { if (el) navLinks[index] = el as HTMLElement }"
+          class="font-label text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 relative pb-2"
+          :class="props.active === item.key ? 'text-primary' : 'text-outline hover:text-on-surface'"
         >
           {{ item.label }}
         </NuxtLink>
+
+        <div
+          class="absolute bottom-0 h-1 bg-primary transition-all duration-300 ease-out"
+          :style="{
+            width: indicatorStyle.width,
+            left: indicatorStyle.left,
+          }"
+        />
       </div>
 
       <div class="flex items-center gap-4">
-        <button
-          type="button"
-          class="material-symbols-outlined rounded-full text-primary transition-transform duration-300 hover:scale-95 active:scale-90"
-          aria-label="Open account menu"
-        >
-          account_circle
-        </button>
+        <a href="https://aneesh-sharma.me" target="_blank" rel="noopener noreferrer" class="font-label text-sm font-bold tracking-[0.05em] text-primary transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(85,221,173,0.8)]">
+          Aneesh
+        </a>
       </div>
     </div>
   </nav>

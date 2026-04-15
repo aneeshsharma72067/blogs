@@ -59,8 +59,8 @@ const principles = [
             </div>
 
             <div>
-              <h3 class="mb-2 font-headline font-bold text-on-surface">Elias Thorne</h3>
-              <p class="font-label text-[11px] uppercase tracking-widest text-outline">Author & Designer</p>
+              <h3 class="mb-2 font-headline font-bold text-on-surface">Aneesh Sharma</h3>
+              <p class="font-label text-[11px] uppercase tracking-widest text-outline">Developer & Designer</p>
             </div>
 
             <div class="space-y-4">

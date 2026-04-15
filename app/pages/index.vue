@@ -29,12 +29,7 @@ const { data: posts } = await useAsyncData<HomePost[]>(
 
       <HomeFeedList :posts="posts" />
 
-      <div class="mt-40 flex justify-center">
-        <button class="group flex items-center gap-4 rounded-md bg-secondary-container px-8 py-4 text-on-secondary-container transition-all duration-300 hover:bg-primary hover:text-on-primary">
-          <span class="font-label text-xs font-bold uppercase tracking-widest">Earlier Manuscripts</span>
-          <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
-        </button>
-      </div>
+     
     </main>
 
     <AppFooter />
