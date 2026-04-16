@@ -16,6 +16,8 @@ const body = ref('')
 const postId = ref<string | null>(null)
 const status = ref<'idle' | 'saving' | 'saved' | 'publishing' | 'published' | 'error'>('idle')
 const statusMessage = ref('')
+const { createPost, updatePost } = usePosts()
+const { logout: logoutUser } = useAuth()
 
 const hasContent = (value: string) => value.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim().length > 0
 
@@ -29,15 +31,15 @@ const persistPost = async (nextStatus: 'draft' | 'published') => {
   status.value = nextStatus === 'draft' ? 'saving' : 'publishing'
   statusMessage.value = ''
 
-  const post = await $fetch<{ id: string; status: 'draft' | 'published' }>('/api/admin/posts', {
-    method: 'POST',
-    body: {
-      id: postId.value,
-      title: title.value.trim(),
-      bodyHtml: body.value,
-      status: nextStatus,
-    },
-  })
+  const payload = {
+    title: title.value.trim(),
+    bodyHtml: body.value,
+    status: nextStatus,
+  } as const
+
+  const post = postId.value
+    ? await updatePost(postId.value, payload)
+    : await createPost(payload)
 
   postId.value = post.id
   status.value = nextStatus === 'draft' ? 'saved' : 'published'
@@ -72,7 +74,7 @@ const publish = async () => {
 }
 
 const logout = async () => {
-  await $fetch('/api/admin/logout', { method: 'POST' })
+  await logoutUser()
   await navigateTo('/admin')
 }
 </script>

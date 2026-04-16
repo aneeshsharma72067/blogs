@@ -4,8 +4,7 @@ import { getAnonSupabaseClient, setAuthCookies } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const schema = z.object({
-    email: z.string().email().optional(),
-    username: z.string().email().optional(),
+    email: z.string().email(),
     password: z.string().min(1, 'Password is required.'),
   })
   const parsedBody = schema.safeParse(await readBody(event))
@@ -14,16 +13,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: parsedBody.error.issues[0]?.message ?? 'Invalid login payload.' })
   }
 
-  const email = parsedBody.data.email ?? parsedBody.data.username
-  if (!email) {
-    throw createError({ statusCode: 400, statusMessage: 'Email is required.' })
-  }
-
   const supabase = getAnonSupabaseClient(event)
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password: parsedBody.data.password,
-  })
+  const { data, error } = await supabase.auth.signInWithPassword(parsedBody.data)
 
   if (error || !data.session || !data.user) {
     throw createError({ statusCode: 401, statusMessage: 'Invalid credentials' })

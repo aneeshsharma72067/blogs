@@ -1,11 +1,10 @@
 import { z } from 'zod'
 
-import { createPostForUser, updatePostForUser } from '../../utils/postWrite'
-import { getAuthCookies, requireAuthenticatedUser } from '../../utils/supabase'
+import { createPostForUser } from '../utils/postWrite'
+import { getAuthCookies, requireAuthenticatedUser } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const schema = z.object({
-    id: z.string().uuid().nullable().optional(),
     title: z.string().trim().min(1, 'Title is required.'),
     bodyHtml: z.string().trim().min(1, 'Body is required.'),
     status: z.enum(['draft', 'published']),
@@ -23,20 +22,16 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
-  const payload = {
+  const post = await createPostForUser(event, user.id, accessToken, {
     title: parsedBody.data.title,
     bodyHtml: parsedBody.data.bodyHtml,
     status: parsedBody.data.status,
-  } as const
-
-  const post = parsedBody.data.id
-    ? await updatePostForUser(event, user.id, accessToken, parsedBody.data.id, payload)
-    : await createPostForUser(event, user.id, accessToken, payload)
+  })
 
   return {
     ok: true,
     id: post.id,
-    status: post.status,
     slug: post.slug,
+    status: post.status,
   }
 })

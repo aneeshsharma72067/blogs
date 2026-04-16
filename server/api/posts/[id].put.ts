@@ -1,11 +1,17 @@
+import { getRouterParam } from 'h3'
 import { z } from 'zod'
 
-import { createPostForUser, updatePostForUser } from '../../utils/postWrite'
+import { updatePostForUser } from '../../utils/postWrite'
 import { getAuthCookies, requireAuthenticatedUser } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
+  const param = z.string().uuid('Post id must be a valid UUID.').safeParse(getRouterParam(event, 'id'))
+
+  if (!param.success) {
+    throw createError({ statusCode: 400, statusMessage: param.error.issues[0]?.message ?? 'Invalid post id.' })
+  }
+
   const schema = z.object({
-    id: z.string().uuid().nullable().optional(),
     title: z.string().trim().min(1, 'Title is required.'),
     bodyHtml: z.string().trim().min(1, 'Body is required.'),
     status: z.enum(['draft', 'published']),
@@ -23,20 +29,16 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
-  const payload = {
+  const post = await updatePostForUser(event, user.id, accessToken, param.data, {
     title: parsedBody.data.title,
     bodyHtml: parsedBody.data.bodyHtml,
     status: parsedBody.data.status,
-  } as const
-
-  const post = parsedBody.data.id
-    ? await updatePostForUser(event, user.id, accessToken, parsedBody.data.id, payload)
-    : await createPostForUser(event, user.id, accessToken, payload)
+  })
 
   return {
     ok: true,
     id: post.id,
-    status: post.status,
     slug: post.slug,
+    status: post.status,
   }
 })

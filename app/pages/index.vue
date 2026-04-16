@@ -10,9 +10,11 @@ useHead({
   meta: [{ name: 'description', content: 'A dark minimal home feed for the Manuscript blog.' }],
 })
 
+const { fetchPublishedPosts } = usePosts()
+
 const { data: posts } = await useAsyncData<HomePost[]>(
   'home-posts',
-  () => $fetch('/api/posts'),
+  () => fetchPublishedPosts(),
   { default: () => [] },
 )
 </script>

@@ -1,26 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const username = ref('')
+const email = ref('')
 const password = ref('')
 const errorMessage = ref('')
 const pending = ref(false)
+const { login } = useAuth()
 
 const handleSubmit = async () => {
   errorMessage.value = ''
   pending.value = true
 
   try {
-    await $fetch('/api/admin/login', {
-      method: 'POST',
-      body: {
-        username: username.value,
-        password: password.value,
-      },
+    await login({
+      email: email.value,
+      password: password.value,
     })
     await navigateTo('/admin/dashboard')
-  } catch(err) {
-    console.log(err)
+  } catch {
     errorMessage.value = 'Invalid credentials. Please try again.'
   } finally {
     pending.value = false
@@ -41,19 +38,19 @@ const handleSubmit = async () => {
         <div class="space-y-6">
           <div class="group relative">
             <label
-              for="username"
+              for="email"
               class="mb-2 block font-label text-[10px] font-bold uppercase tracking-widest text-outline transition-colors group-focus-within:text-primary"
             >
-              Username
+              Email
             </label>
             <div class="relative flex items-center border-b-2 border-outline-variant/80 py-3 transition-all duration-300 group-focus-within:border-primary group-focus-within:[box-shadow:0_8px_18px_-14px_rgba(85,221,173,0.95)]">
               <input
-                id="username"
-                v-model="username"
-                name="username"
-                type="text"
+                id="email"
+                v-model="email"
+                name="email"
+                type="email"
                 required
-                placeholder="Enter identifier"
+                placeholder="you@example.com"
                 class="w-full bg-transparent py-0 pr-8 font-headline text-sm tracking-wide text-on-surface placeholder:text-outline-variant/80 outline-none transition-colors focus:outline-none focus:ring-0 focus-visible:outline-none"
               >
               <span class="material-symbols-outlined absolute right-0 text-outline-variant group-focus-within:text-primary">person</span>

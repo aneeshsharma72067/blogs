@@ -6,16 +6,17 @@ import AppHeader from '../../../components/site/AppHeader.vue'
 
 const route = useRoute()
 const postId = computed(() => String(route.params.id ?? ''))
+const { fetchPostBySlug, fetchPublishedPosts } = usePosts()
 
 const { data: post, pending, error } = await useAsyncData<HomePost>(
   () => `post-${postId.value}`,
-  () => $fetch(`/api/posts/${postId.value}`),
+  () => fetchPostBySlug(postId.value),
   { watch: [postId] },
 )
 
 const { data: allPosts } = await useAsyncData<HomePost[]>(
   'public-posts-for-related',
-  () => $fetch('/api/posts'),
+  () => fetchPublishedPosts(),
   { default: () => [] },
 )
 
