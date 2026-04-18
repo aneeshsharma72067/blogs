@@ -24,9 +24,9 @@ const { data: posts } = await useAsyncData<HomePost[]>(
     <AppHeader active="essays" />
     <main id="feed" class="mx-auto min-h-screen max-w-7xl px-6 pb-20 pt-32 sm:px-8">
       <HomeHero
-        title="Deep Ink &"
-        highlighted="Nocturnal Thoughts."
-        description="A sanctuary for the written word. Here, the interface disappears to make space for meditation, observation, and the architectural beauty of text."
+        title="Building Things & Thinking Out"
+        highlighted="Loud."
+        description="Notes from someone still becoming. Here, half-formed ideas meet working code, and the gap between them is the whole point."
       />
 
       <HomeFeedList :posts="posts" />

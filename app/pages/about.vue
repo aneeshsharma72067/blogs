@@ -7,18 +7,18 @@ useHead({
   meta: [{ name: 'description', content: 'About The Nocturnal Manuscript and its design philosophy.' }],
 })
 
-const themes = ['Digital Asceticism', 'Brutalist Typography', 'The Void as Content']
+const themes = ['Systems Thinking', 'Concurrency & Go', 'The Craft of Code']
 
 const principles = [
   {
     icon: 'auto_awesome',
-    title: 'Clarity over Complexity',
-    description: 'Reducing every interface to its absolute semantic essence.',
+    title: 'Depth over Velocity',
+    description: 'Understanding something slowly is faster than misunderstanding it quickly.',
   },
   {
     icon: 'dark_mode',
-    title: 'Nocturnal Comfort',
-    description: 'Designing for the low-light hours when focus is most intense.',
+    title: 'Work Across the Stack',
+    description: "The best systems are built by people who've felt the weight of every layer they depend on.",
   },
 ]
 </script>
@@ -32,16 +32,16 @@ const principles = [
         <div class="grid grid-cols-1 items-end gap-16 lg:grid-cols-12">
           <div class="lg:col-span-8">
             <span class="mb-6 block font-label text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-              The Philosophy
+              THE PERSON
             </span>
             <h1 class="font-headline text-5xl font-extrabold leading-[1.1] tracking-tight text-on-surface md:text-7xl">
-              Cultivating the <span class="italic text-primary">Nocturnal</span> Mind in a Digital Age.
+              Learning to Build in a <span class="italic text-primary">World That Rewards Speed.</span>
             </h1>
           </div>
 
           <div class="hidden lg:col-span-4 lg:block">
             <p class="border-l border-outline-variant/30 pl-6 font-label text-xs uppercase tracking-widest leading-loose text-outline">
-              An exploration of quietude, deep work, and the aesthetics of written thought.
+              A RECORD OF QUESTIONS ASKED, SYSTEMS BROKEN, AND THE SLOW ACCUMULATION OF CRAFT.
             </p>
           </div>
         </div>
@@ -52,7 +52,7 @@ const principles = [
           <div class="sticky top-32 flex flex-col gap-12">
             <div class="group relative aspect-square overflow-hidden rounded-xl bg-surface-container-low">
               <img
-                src="/stitch/about-author-portrait.jpg"
+                src="../assets/images/author.png"
                 alt="Portrait of the author"
                 class="h-full w-full object-cover opacity-80 grayscale transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0"
               >
@@ -60,7 +60,7 @@ const principles = [
 
             <div>
               <h3 class="mb-2 font-headline font-bold text-on-surface">Aneesh Sharma</h3>
-              <p class="font-label text-[11px] uppercase tracking-widest text-outline">Developer & Designer</p>
+              <p class="font-label text-[11px] uppercase tracking-widest text-outline">BUILDER IN PROGRESS</p>
             </div>
 
             <div class="space-y-4">
@@ -75,30 +75,25 @@ const principles = [
         <article class="max-w-2xl lg:col-span-9">
           <div class="space-y-12 text-lg leading-relaxed text-on-surface/90">
             <p class="font-body">
-              In an era defined by the frantic pulse of notifications and the ceaseless churn of the feed,
-              <span class="font-bold text-on-surface"> The Nocturnal Manuscript </span>
-              is a rebellion. It is a space designed for the slow, the deliberate, and the deep.
+              In an industry obsessed with titles, I find myself without a clean one, and I've stopped looking. <span class="font-bold text-on-surface">Aneesh Sharma</span>  is early in a career that doesn't yet have edges. Backend systems, frontend interfaces, design, architecture: I move between them not out of confusion, but out of genuine curiosity about how things fit together.
+              
             </p>
 
             <div class="my-16 rounded-r-xl border-l-4 border-primary bg-primary-container/10 p-12">
-              <h2 class="mb-4 font-headline text-xl font-bold text-primary">The core thesis is simple:</h2>
+              <h2 class="mb-4 font-headline text-xl font-bold text-primary">The honest thesis is this:</h2>
               <p class="font-body text-xl italic leading-relaxed text-on-secondary-container">
-                "The quality of our attention determines the quality of our reality. When we trade focus for speed, we lose the texture of our own existence."
+                "I don't know what kind of engineer I'll be in ten years. But I know I want to understand, deeply, carefully, not just how to ship, but why the abstractions we reach for are the ones we do."
               </p>
             </div>
 
             <p class="font-body">
-              Writing here is not about the latest or the trending. It is an exercise in suspended ink. I believe that digital platforms should feel less like billboards and more like libraries where the architecture recedes to honor the internal monologue.
+              Writing here is not about tutorials or trending frameworks. It is an act of thinking in public. I believe the best way to understand a concurrency model, a design pattern, or an architectural tradeoff is to try to explain it, and to sit with the discomfort of realizing you can't yet. That gap is where the real learning is.
             </p>
 
-            <h3 class="pt-8 font-headline text-3xl font-bold text-on-surface">Principles of Design</h3>
+            <h3 class="pt-8 font-headline text-3xl font-bold text-on-surface">Principles of Work</h3>
 
             <p class="font-body">
-              I approach the interface with a no-line rule. Boundaries should not be enforced by rigid strokes but felt through tonal shifts and the weight of negative space. We use
-              <span class="px-1 font-headline text-xs font-bold uppercase tracking-widest text-primary">Manrope</span>
-              for the skeletal structure and
-              <span class="font-body italic text-on-surface">Noto Serif</span>
-              for the blood of the page.
+              I approach software the way others approach language, with a suspicion of cleverness and a preference for clarity. The right abstraction is not the one that shows off what's possible, but the one that makes the next person's job obvious. I reach for <span class="px-1 font-headline text-xs font-bold uppercase tracking-widest text-primary">Go</span> when I want to think about structure. I reach for the browser when I want to think about people.              
             </p>
 
             <div class="my-16 grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -114,7 +109,7 @@ const principles = [
             </div>
 
             <p class="font-body">
-              This manuscript is a living artifact. It evolves as I find new ways to articulate the quiet struggle for meaning in a loud world. Thank you for being here, in the stillness.
+              This blog is a living document of a mind still being made. It will change as I do. If something here made you think differently about a problem, or made you feel less alone in not knowing, then it worked. Thank you for reading slowly.
             </p>
 
             <div class="flex items-center gap-6 border-t border-outline-variant/10 pt-12">
