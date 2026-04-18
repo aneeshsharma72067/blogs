@@ -126,7 +126,7 @@ const logout = async () => {
         <div class="mb-4 flex gap-8">
           <a href="#" class="font-body text-sm italic text-on-surface/40 transition-colors hover:text-primary">Privacy Policy</a>
           <a href="#" class="font-body text-sm italic text-on-surface/40 transition-colors hover:text-primary">Terms of Service</a>
-          <a href="#" class="font-body text-sm italic text-on-surface/40 transition-colors hover:text-primary">RSS Feed</a>
+          <a href="/feed.xml" class="font-body text-sm italic text-on-surface/40 transition-colors hover:text-primary">RSS Feed</a>
         </div>
         <p class="font-body text-sm italic text-on-surface/50">© 2024 The Nocturnal Manuscript. All rights reserved.</p>
       </div>

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const footerLinks = [
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Service', href: '#' },
-  { label: 'RSS Feed', href: '#' },
+  { label: 'RSS Feed', href: '/feed.xml' },
 ]
 </script>
 

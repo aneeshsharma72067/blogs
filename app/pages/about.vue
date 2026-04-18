@@ -120,10 +120,10 @@ const principles = [
                 Read the Essays
               </NuxtLink>
 
-              <button type="button" class="inline-flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-primary transition-transform hover:translate-x-2">
+              <a href="/feed.xml" class="inline-flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-primary transition-transform hover:translate-x-2">
                 Connect via RSS
                 <span class="material-symbols-outlined text-sm">rss_feed</span>
-              </button>
+              </a>
             </div>
           </div>
         </article>

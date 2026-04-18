@@ -46,7 +46,7 @@ onMounted(() => {
   <nav class="fixed top-0 z-50 w-full bg-surface-container-low/70 backdrop-blur-xl">
     <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8">
       <div class="font-headline text-2xl font-black text-on-surface">
-        Manuscript
+        Stdout
       </div>
 
       <div ref="navContainer" class="relative hidden items-center gap-8 overflow-visible md:flex">
