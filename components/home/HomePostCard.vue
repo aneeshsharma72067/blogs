@@ -8,6 +8,11 @@ const props = defineProps<{
 
 const PREVIEW_MAX_CHARS = 420
 
+interface TruncatedPreview {
+  text: string
+  truncated: boolean
+}
+
 function htmlToText(html: string): string {
   return html
     .replace(/<br\s*\/?\s*>/gi, '\n')
@@ -24,9 +29,9 @@ function htmlToText(html: string): string {
     .trim()
 }
 
-function truncateSafely(text: string, maxChars: number): string {
+function truncateSafely(text: string, maxChars: number): TruncatedPreview {
   if (text.length <= maxChars) {
-    return text
+    return { text, truncated: false }
   }
 
   const paragraphs = text
@@ -49,7 +54,10 @@ function truncateSafely(text: string, maxChars: number): string {
     }
 
     if (selected.length > 0) {
-      return selected.join('\n\n')
+      return {
+        text: selected.join('\n\n'),
+        truncated: true
+      }
     }
   }
 
@@ -73,20 +81,29 @@ function truncateSafely(text: string, maxChars: number): string {
     }
 
     if (selected.length > 0) {
-      return selected.join('\n')
+      return {
+        text: selected.join('\n'),
+        truncated: true
+      }
     }
   }
 
   const slice = text.slice(0, maxChars)
   const lastSpace = slice.lastIndexOf(' ')
   if (lastSpace > Math.floor(maxChars * 0.6)) {
-    return `${slice.slice(0, lastSpace).trimEnd()}...`
+    return {
+      text: `${slice.slice(0, lastSpace).trimEnd()}...`,
+      truncated: true
+    }
   }
 
-  return `${slice.trimEnd()}...`
+  return {
+    text: `${slice.trimEnd()}...`,
+    truncated: true
+  }
 }
 
-const previewBody = computed(() => truncateSafely(htmlToText(props.post.bodyHtml), PREVIEW_MAX_CHARS))
+const preview = computed(() => truncateSafely(htmlToText(props.post.bodyHtml), PREVIEW_MAX_CHARS))
 </script>
 
 <template>
@@ -107,7 +124,10 @@ const previewBody = computed(() => truncateSafely(htmlToText(props.post.bodyHtml
         </NuxtLink>
       </h2>
 
-      <p class="post-body font-body text-lg leading-[1.8] text-on-surface-variant">{{ previewBody }}</p>
+      <p class="post-body font-body text-lg leading-[1.8] text-on-surface-variant">
+        {{ preview.text }}
+        <NuxtLink v-if="preview.truncated" :to="`/posts/${post.id}`" class="more-marker"> ... Continue reading</NuxtLink>
+      </p>
     </div>
 
     <div class="md:col-span-4 flex flex-col items-start pt-4 md:items-end">
@@ -125,5 +145,11 @@ const previewBody = computed(() => truncateSafely(htmlToText(props.post.bodyHtml
 .post-body {
   margin: 0;
   white-space: pre-line;
+}
+
+.more-marker {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: rgb(85 221 173);
 }
 </style>
