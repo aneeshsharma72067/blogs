@@ -19,7 +19,7 @@ const footerLinks = [
       </div>
 
       <p class="font-body text-sm italic text-primary">
-        © 2024 The Nocturnal Manuscript. All rights reserved.
+        ©  {{ new Date().getFullYear() }} Aneesh Sharma
       </p>
     </div>
   </footer>
