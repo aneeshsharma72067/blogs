@@ -100,7 +100,7 @@ useHead(() => ({
                 <span class="material-symbols-outlined text-primary">edit_note</span>
               </div>
               <div>
-                <p class="font-headline text-sm font-bold text-on-surface">Deep Ink Editorial</p>
+                <p class="font-headline text-sm font-bold text-on-surface">Aneesh Sharma</p>
                 <p class="font-body text-xs italic text-outline">Lead Curator</p>
               </div>
             </div>
@@ -121,7 +121,7 @@ useHead(() => ({
             </div>
           </section>
 
-          <section class="rounded-xl bg-surface-container-low p-7">
+          <!-- <section class="rounded-xl bg-surface-container-low p-7">
             <h2 class="mb-3 font-label text-[11px] font-bold uppercase tracking-[0.2em] text-primary">Newsletter</h2>
             <p class="mb-5 font-body text-xs italic text-outline">Join the nocturnal circulation for weekly deep reads.</p>
             <div class="space-y-3">
@@ -137,7 +137,7 @@ useHead(() => ({
                 Subscribe
               </button>
             </div>
-          </section>
+          </section> -->
         </aside>
       </article>
 

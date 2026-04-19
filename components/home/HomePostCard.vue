@@ -1,9 +1,92 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { HomePost } from '../../types/home-post'
 
-defineProps<{
+const props = defineProps<{
   post: HomePost
 }>()
+
+const PREVIEW_MAX_CHARS = 420
+
+function htmlToText(html: string): string {
+  return html
+    .replace(/<br\s*\/?\s*>/gi, '\n')
+    .replace(/<\/p>/gi, '\n\n')
+    .replace(/<p\b[^>]*>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/\r\n?/g, '\n')
+    .trim()
+}
+
+function truncateSafely(text: string, maxChars: number): string {
+  if (text.length <= maxChars) {
+    return text
+  }
+
+  const paragraphs = text
+    .split(/\n\s*\n+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+
+  if (paragraphs.length > 1) {
+    const selected: string[] = []
+    let currentLength = 0
+
+    for (const paragraph of paragraphs) {
+      const nextLength = currentLength + paragraph.length + (selected.length > 0 ? 2 : 0)
+      if (nextLength > maxChars) {
+        break
+      }
+
+      selected.push(paragraph)
+      currentLength = nextLength
+    }
+
+    if (selected.length > 0) {
+      return selected.join('\n\n')
+    }
+  }
+
+  const lines = text
+    .split(/\n+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+
+  if (lines.length > 1) {
+    const selected: string[] = []
+    let currentLength = 0
+
+    for (const line of lines) {
+      const nextLength = currentLength + line.length + (selected.length > 0 ? 1 : 0)
+      if (nextLength > maxChars) {
+        break
+      }
+
+      selected.push(line)
+      currentLength = nextLength
+    }
+
+    if (selected.length > 0) {
+      return selected.join('\n')
+    }
+  }
+
+  const slice = text.slice(0, maxChars)
+  const lastSpace = slice.lastIndexOf(' ')
+  if (lastSpace > Math.floor(maxChars * 0.6)) {
+    return `${slice.slice(0, lastSpace).trimEnd()}...`
+  }
+
+  return `${slice.trimEnd()}...`
+}
+
+const previewBody = computed(() => truncateSafely(htmlToText(props.post.bodyHtml), PREVIEW_MAX_CHARS))
 </script>
 
 <template>
@@ -24,7 +107,7 @@ defineProps<{
         </NuxtLink>
       </h2>
 
-      <div class="post-body font-body text-lg leading-[1.8] text-on-surface-variant" v-html="post.bodyHtml" />
+      <p class="post-body font-body text-lg leading-[1.8] text-on-surface-variant">{{ previewBody }}</p>
     </div>
 
     <div class="md:col-span-4 flex flex-col items-start pt-4 md:items-end">
@@ -39,49 +122,8 @@ defineProps<{
 </template>
 
 <style scoped>
-.post-body :deep(p) {
-  margin: 0 0 1.5rem;
-}
-
-.post-body :deep(p:last-child) {
-  margin-bottom: 0;
-}
-
-.post-body :deep(blockquote) {
-  margin: 2rem 0;
-  border-left: 4px solid rgb(85 221 173 / 0.8);
-  background: rgb(85 221 173 / 0.08);
-  padding: 1.5rem 2rem;
-  font-style: italic;
-  color: rgb(219 226 224);
-}
-
-.post-body :deep(ul),
-.post-body :deep(ol) {
-  margin: 0 0 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.post-body :deep(li + li) {
-  margin-top: 0.5rem;
-}
-
-.post-body :deep(pre) {
-  margin: 2rem 0;
-  overflow-x: auto;
-  border-radius: 0.75rem;
-  background: rgb(16 20 28 / 0.9);
-  padding: 1.25rem 1.5rem;
-  color: rgb(220 226 240);
-}
-
-.post-body :deep(code) {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-.post-body :deep(a) {
-  color: rgb(85 221 173);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+.post-body {
+  margin: 0;
+  white-space: pre-line;
 }
 </style>
